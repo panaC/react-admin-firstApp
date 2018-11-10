@@ -1,3 +1,4 @@
+/*
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
@@ -25,4 +26,25 @@ class App extends Component {
   }
 }
 
+export default App;
+*/
+
+import React from 'react';
+import { Admin, Resource /*, ListGuesser*/, EditGuesser } from 'react-admin';
+import { UserList } from './users.js'
+import { PostEdit, PostList, PostCreate } from './posts';
+import Dashboard from './dash'
+import authProvider from './authProviders'
+import jsonServerProvider from 'ra-data-json-server';
+import PostIcon from '@material-ui/icons/Book';
+import UserIcon from '@material-ui/icons/Group';
+
+const dataProvider = jsonServerProvider('http://jsonplaceholder.typicode.com');
+
+const App = () => (
+    <Admin  dashboard={Dashboard} authProvider={authProvider} dataProvider={dataProvider}>
+        <Resource name="posts" list={PostList} edit={PostEdit} create={PostCreate} icon={PostIcon}/>
+        <Resource name="users" list={UserList} icon={UserIcon}/>
+    </Admin>
+);
 export default App;
